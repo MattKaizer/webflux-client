@@ -13,14 +13,15 @@ import swal from 'sweetalert2';
 export class ClientesService {
 
   private urlEndPoint = 'http://localhost:8080/api/clientes';
-  listaClientes: Cliente[];
+  myData: any;
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private zone: NgZone
   ) { }
 
-  getClientes(): Observable<any> {
+/*   getClientes(): Observable<any> {
     return new Observable(obs => {
       const source = new EventSource(this.urlEndPoint);
 
@@ -32,6 +33,13 @@ export class ClientesService {
       return () => source.close();
 
     });
+  } */
+
+  connect(): EventSource {
+    return new EventSource(this.urlEndPoint);
   }
+
+
+
 }
 

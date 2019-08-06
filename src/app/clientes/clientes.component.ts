@@ -10,18 +10,27 @@ import { ClientesService } from './clientes.service';
 })
 export class ClientesComponent implements OnInit {
 
+  listaClientes: Array<Cliente>;
+
   constructor(
     private clienteService: ClientesService
   ) { }
 
   ngOnInit() {
 
-    this.clienteService.getClientes().subscribe(
+/*     this.clienteService.getClientes()
+    .subscribe(
       objs => {
-        // this.clienteService.listaClientes.push(objs);
-        console.log(objs);
+        this.listaClientes = objs;
+        console.log(this.listaClientes);
       }
-    );
+    ); */
+
+    this.clienteService.connect().addEventListener('message', message => {
+      this.listaClientes = JSON.parse(message.data);
+      console.log(this.listaClientes);
+    });
+
   }
 
 }
