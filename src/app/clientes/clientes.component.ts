@@ -1,6 +1,4 @@
-import { Observer, Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from './cliente';
 import { ClientesService } from './clientes.service';
 
 @Component({
@@ -10,9 +8,8 @@ import { ClientesService } from './clientes.service';
 })
 export class ClientesComponent implements OnInit {
 
-  // listaClientes: Observable<Array<String>>;
-  listaClientes = new Array<any>();
-  cli: any;
+listaClientes = new Array<any>();
+
   constructor(
     private clienteService: ClientesService
   ) { }
@@ -21,26 +18,17 @@ export class ClientesComponent implements OnInit {
     this.getClientList();
   }
 
-  ngOnDestroy(): void {
-    this.getClientList().unsubscribe();
-  }
 
   getClientList() {
     return this.clienteService.getClientes().subscribe(data => {
-      // this.listaClientes = new Array<Cliente>();
-      // this.listaClientes = [];
 
-      const clientIndex: number = this.listaClientes.findIndex((cliente: any) => cliente.id === data.id);
-      if (clientIndex >= 0) {
-        this.listaClientes[clientIndex] = data;
-      } else {
-        this.listaClientes.push(data);
-      }
-
-
-
-
-      console.log(this.listaClientes);
+    const clientIndex: number = this.listaClientes.findIndex((cliente: any) => cliente.id === data.id);
+    if (clientIndex >= 0) {
+      this.listaClientes[clientIndex] = data;
+    } else {
+      this.listaClientes.push(data);
+    }
+    console.log(this.listaClientes);
     });
   }
 

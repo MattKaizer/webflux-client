@@ -30,14 +30,6 @@ export class ClientesService {
         this.zone.run(() => obs.next(json));
       };
 
-/*       source.onerror = error => {
-        this.zone.run(() => {
-          obs.error(error);
-        });
-      }; */
-
-      // return () => source.close();
-
     });
   }
 
@@ -45,12 +37,5 @@ export class ClientesService {
   getEventSource(url: string): EventSource {
     return new EventSource(url);
   }
-
-/*    connect(): EventSource {
-    return new EventSource(this.urlEndPoint);
-  } */
-
-
-
 }
 
