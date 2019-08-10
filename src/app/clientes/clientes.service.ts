@@ -18,26 +18,37 @@ export class ClientesService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private zone: NgZone
+    private zone: NgZone,
   ) { }
 
-/*   getClientes(): Observable<any> {
+  getClientes(): Observable<any> {
     return new Observable(obs => {
-      const source = new EventSource(this.urlEndPoint);
+      const source = this.getEventSource(this.urlEndPoint);
 
       source.onmessage = e => {
         const json = JSON.parse(e.data);
         this.zone.run(() => obs.next(json));
       };
 
-      return () => source.close();
+/*       source.onerror = error => {
+        this.zone.run(() => {
+          obs.error(error);
+        });
+      }; */
+
+      // return () => source.close();
 
     });
-  } */
-
-  connect(): EventSource {
-    return new EventSource(this.urlEndPoint);
   }
+
+
+  getEventSource(url: string): EventSource {
+    return new EventSource(url);
+  }
+
+/*    connect(): EventSource {
+    return new EventSource(this.urlEndPoint);
+  } */
 
 
 

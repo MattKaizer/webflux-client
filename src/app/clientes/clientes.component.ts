@@ -1,4 +1,4 @@
-import { Observer } from 'rxjs';
+import { Observer, Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClientesService } from './clientes.service';
@@ -10,27 +10,38 @@ import { ClientesService } from './clientes.service';
 })
 export class ClientesComponent implements OnInit {
 
-  listaClientes: Array<Cliente>;
-
+  // listaClientes: Observable<Array<String>>;
+  listaClientes = new Array<any>();
+  cli: any;
   constructor(
     private clienteService: ClientesService
   ) { }
 
   ngOnInit() {
+    this.getClientList();
+  }
 
-/*     this.clienteService.getClientes()
-    .subscribe(
-      objs => {
-        this.listaClientes = objs;
-        console.log(this.listaClientes);
+  ngOnDestroy(): void {
+    this.getClientList().unsubscribe();
+  }
+
+  getClientList() {
+    return this.clienteService.getClientes().subscribe(data => {
+      // this.listaClientes = new Array<Cliente>();
+      // this.listaClientes = [];
+
+      const clientIndex: number = this.listaClientes.findIndex((cliente: any) => cliente.id === data.id);
+      if (clientIndex >= 0) {
+        this.listaClientes[clientIndex] = data;
+      } else {
+        this.listaClientes.push(data);
       }
-    ); */
 
-    this.clienteService.connect().addEventListener('message', message => {
-      this.listaClientes = JSON.parse(message.data);
+
+
+
       console.log(this.listaClientes);
     });
-
   }
 
 }

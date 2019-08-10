@@ -18,16 +18,15 @@
           <th>APELLIDO</th>
           <th>EMAIL</th>
           <th>FECHA INICIO</th>
-          <th>ACCIONES</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of listaClientes | async">
-          <td>{{item?.id}}</td>
-          <td>{{item?.nombre}}</td>
-          <td>{{item?.apellido}}</td>
-          <td>{{item?.email}}</td>
-          <td>{{item?.createdAt}}</td>
+        <tr *ngFor="let item of listaClientes" >
+          <td>{{item.id}}</td>
+          <td>{{item.nombre}}</td>
+          <td>{{item.apellido}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.createdAt}}</td>
         </tr>
       </tbody>
     </table>
